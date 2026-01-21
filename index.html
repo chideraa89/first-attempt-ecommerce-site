@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jumia Clone | Online Shopping Made Easy</title>
+    
+    <!-- Icons and Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <a href="#" class="logo">
+                    <i class="fas fa-shopping-bag logo-icon"></i>
+                    <div class="logo-text">Shop<span>EveryThing</span></div>
+                </a>
+
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search for products, brands and categories...">
+                </div>
+
+                <!-- Header Actions -->
+                <div class="header-actions">
+                    <!-- Account Button with Dropdown -->
+                    <div class="account-container" style="position: relative;">
+                        <button class="header-action" id="accountButton">
+                            <i class="fas fa-user-circle action-icon"></i>
+                            <span class="action-text">Account</span>
+                        </button>
+                        <div class="account-dropdown" id="accountDropdown">
+                            <ul class="account-links">
+                                <li><a href="#" class="account-link" id="loginLink"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                                <li><a href="#" class="account-link" id="registerLink"><i class="fas fa-user-plus"></i> join Us</a></li>
+                                <li><a href="#" class="account-link" id="ordersLink" style="display: none;"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+                                <li><a href="#" class="account-link" id="profileLink" style="display: none;"><i class="fas fa-user"></i> Profile</a></li>
+                                <li><a href="#" class="account-link" id="logoutLink" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Cart Button with Dropdown -->
+                    <div class="cart-container" style="position: relative;">
+                        <button class="header-action" id="cartButton">
+                            <i class="fas fa-shopping-cart action-icon"></i>
+                            <span class="action-text">Cart</span>
+                            <span class="cart-count" id="cartCount">0</span>
+                        </button>
+                        <div class="cart-dropdown" id="cartDropdown">
+                            <div class="cart-header">
+                                <h3 class="cart-title">Shopping Cart</h3>
+                            </div>
+                            <div class="cart-items" id="cartItems">
+                                <!-- Cart items will be loaded here dynamically -->
+                                <div class="cart-empty">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <p>Your cart is empty</p>
+                                </div>
+                            </div>
+                            <div class="cart-footer" id="cartFooter" style="display: none;">
+                                <div class="cart-total">
+                                    <span>Total:</span>
+                                    <span id="cartTotal">$0.00</span>
+                                </div>
+                                <button class="btn" id="viewCartBtn">View Cart</button>
+                                <button class="btn btn-secondary" id="checkoutBtn">Checkout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <nav class="main-nav">
+            <div class="container nav-container">
+                <button class="all-categories">
+                    <i class="fas fa-bars"></i>
+                    All Categories
+                </button>
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#electronics" class="nav-link">Electronics</a></li>
+                    <li><a href="#fashion" class="nav-link">Fashion</a></li>
+                    <li><a href="#home-garden" class="nav-link">Home & Garden</a></li>
+                    <li><a href="#phones" class="nav-link">Phones & Tablets</a></li>
+                    <li><a href="#computing" class="nav-link">Computing</a></li>
+                    <li><a href="#supermarket" class="nav-link">Supermarket</a></li>
+                    <li><a href="#deals" class="nav-link">Deals</a></li>
+                    <li><a href="#help" class="nav-link">Help</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Login to Your Account</h3>
+                <button class="modal-close" id="closeLoginModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-success" id="loginSuccess" style="display: none;">Login successful! Redirecting...</div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label" for="loginEmail">Email Address</label>
+                        <input type="email" class="form-input" id="loginEmail" placeholder="Enter your email" required>
+                        <div class="form-error" id="loginEmailError" style="display: none;">Please enter a valid email address</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="loginPassword">Password</label>
+                        <input type="password" class="form-input" id="loginPassword" placeholder="Enter your password" required>
+                        <div class="form-error" id="loginPasswordError" style="display: none;">Password must be at least 6 characters</div>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Login</button>
+                </form>
+                <div style="text-align: center; margin-top: 15px;">
+                    <p>Don't have an account? <a href="#" id="showRegisterModalLink" style="color: var(--primary);">Register here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create New Account</h3>
+                <button class="modal-close" id="closeRegisterModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-success" id="registerSuccess" style="display: none;">Registration successful! You can now login.</div>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label class="form-label" for="registerName">Full Name</label>
+                        <input type="text" class="form-input" id="registerName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="registerEmail">Email Address</label>
+                        <input type="email" class="form-input" id="registerEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="registerPassword">Password</label>
+                        <input type="password" class="form-input" id="registerPassword" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="registerConfirmPassword">Confirm Password</label>
+                        <input type="password" class="form-input" id="registerConfirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Create Account</button>
+                </form>
+                <div style="text-align: center; margin-top: 15px;">
+                    <p>Already have an account? <a href="#" id="showLoginModalLink" style="color: var(--primary);">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="modal" id="productDetailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="productDetailTitle">Product Details</h3>
+                <button class="modal-close" id="closeProductDetailModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="product-detail" id="productDetailContent">
+                    <!-- Product details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Checkout</h3>
+                <button class="modal-close" id="closeCheckoutModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="checkout-steps">
+                    <div class="checkout-step active">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Shipping</div>
+                    </div>
+                    <div class="checkout-step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Payment</div>
+                    </div>
+                    <div class="checkout-step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Confirmation</div>
+                    </div>
+                </div>
+
+                <form id="checkoutForm">
+                    <div class="checkout-form">
+                        <h3>Shipping Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="checkoutFirstName">First Name</label>
+                                <input type="text" class="form-input" id="checkoutFirstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="checkoutLastName">Last Name</label>
+                                <input type="text" class="form-input" id="checkoutLastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="checkoutEmail">Email Address</label>
+                            <input type="email" class="form-input" id="checkoutEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="checkoutAddress">Shipping Address</label>
+                            <input type="text" class="form-input" id="checkoutAddress" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="checkoutCity">City</label>
+                                <input type="text" class="form-input" id="checkoutCity" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="checkoutZip">ZIP Code</label>
+                                <input type="text" class="form-input" id="checkoutZip" required>
+                            </div>
+                        </div>
+
+                        <div class="order-summary">
+                            <h3>Order Summary</h3>
+                            <div id="checkoutSummary">
+                                <!-- Order items will be loaded here -->
+                            </div>
+                            <div class="summary-total">
+                                <span>Total:</span>
+                                <span id="checkoutTotal">&#8358;0.00</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn" style="width: 100%; margin-top: 20px;">Proceed to Payment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Carousel -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="carousel">
+                <div class="carousel-slides">
+                    <!-- Slide 1 -->
+                    <div class="carousel-slide">
+                        <img src="image/electronic ad.jpg" alt="Summer Sale" class="carousel-image">
+                        <div class="carousel-content">
+                            <h2 class="carousel-title">Summer Sale Up to 70% Off</h2>
+                            <p class="carousel-text">Discover amazing deals on electronics, fashion, home appliances and more</p>
+                            <a href="#deals" class="btn carousel-btn">Shop Now</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 2 -->
+                    <div class="carousel-slide">
+                        <img src="/image/electronic ad.jpg" alt="Electronics" class="carousel-image">
+                        <div class="carousel-content">
+                            <h2 class="carousel-title">Latest Electronics Collection</h2>
+                            <p class="carousel-text">Brand new smartphones, laptops, TVs and gadgets at unbeatable prices</p>
+                            <a href="#electronics" class="btn carousel-btn">Explore Electronics</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 3 -->
+                    <div class="carousel-slide">
+                        <img src="/image/coming soon.jpg" alt="Fashion" class="carousel-image">
+                        <div class="carousel-content">
+                            <h2 class="carousel-title">New Fashion Collection</h2>
+                            <p class="carousel-text">Stay trendy with our latest fashion arrivals for men, women and kids</p>
+                            <a href="#fashion" class="btn carousel-btn">Browse Fashion</a>
+                        </div>
+                    </div>
+                     <!-- Slide 3 -->
+                    <div class="carousel-slide">
+                        <img src="/image/coming soon.jpg" alt="Fashion" class="carousel-image">
+                        <div class="carousel-content">
+                            <h2 class="carousel-title">Home And Garden</h2>
+                            <p class="carousel-text">Stay trendy with our latest indoor and outdoor decorations</p>
+                            <a href="#fashion" class="btn carousel-btn">Browse Decors</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Carousel Dots -->
+                <div class="carousel-dots">
+                    <span class="carousel-dot active" data-slide="0"></span>
+                    <span class="carousel-dot" data-slide="1"></span>
+                    <span class="carousel-dot" data-slide="2"></span>
+                    <span class="carousel-dot" data-slide="3"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deals Countdown -->
+    <section class="deals-section" id="deals">
+        <div class="container">
+            <div class="countdown-container">
+                <h2 class="countdown-title">FLASH SALE<br><span>Ends In:</span></h2>
+                <div class="countdown-timer">
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="hours">23</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="minutes">59</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="seconds">59</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+                <a href="#products" class="btn deals-btn">View All Deals</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <!-- Products Header with Filters -->
+            <div class="products-header">
+                <h2 class="section-title">Featured Products</h2>
+                <div class="product-filters">
+                    <select class="filter-select" id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="home">Home & Garden</option>
+                        <option value="phones">Phones & Tablets</option>
+                        <option value="computing">Computing</option>
+                    </select>
+                    <select class="filter-select" id="sortFilter">
+                        <option value="featured">Sort By: Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Top Rated</option>
+                        <option value="newest">Newest Arrivals</option>
+                    </select>
+                    <div class="price-range">
+                        <input type="number" class="price-input" id="minPrice" placeholder="Min $" min="0" max="10000">
+                        <span>-</span>
+                        <input type="number" class="price-input" id="maxPrice" placeholder="Max #" min="0" max="10000">
+                        <button class="btn" id="applyPriceFilter">Apply</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <!-- <div class="product-grid" id="productGrid"> -->
+                <!-- Products will be loaded dynamically -->
+            <!-- </div> -->
+                <!-- CATEGORIES -->
+    <section class="categories container">
+        <h2 class="section-title">
+            <i class="fas fa-th-large"></i>
+            Shop by Category
+        </h2>
+        <div class="categories-grid">
+            <a href="#" class="category-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Phones & Tablets</h3>
+            </a>
+            <a href="#" class="category-card">
+                <i class="fas fa-laptop"></i>
+                <h3>Computing</h3>
+            </a>
+            <a href="#" class="category-card">
+                <i class="fas fa-tshirt"></i>
+                <h3>Fashion</h3>
+            </a>
+            <a href="#" class="category-card">
+                <i class="fas fa-home"></i>
+                <h3>Home & Kitchen</h3>
+            </a>
+            <a href="#" class="category-card">
+                <i class="fas fa-utensils"></i>
+                <h3>Groceries</h3>
+            </a>
+            <a href="#" class="category-card">
+                <i class="fas fa-tv"></i>
+                <h3>Electronics</h3>
+            </a>
+            <a href="#" class="category-card">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Health & Beauty</h3>
+            </a>
+            <a href="#" class="category-card">
+                <i class="fas fa-gamepad"></i>
+                <h3>Gaming</h3>
+            </a>
+        </div>
+    </section>
+        </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="quick-links">
+        <div class="container">
+            <div class="links-grid">
+                <div class="link-category">
+                    <h3>Popular Categories</h3>
+                    <ul class="link-list">
+                        <li><a href="#phones">Smartphones</a></li>
+                        <li><a href="#fashion">Men's Fashion</a></li>
+                        <li><a href="#fashion">Women's Fashion</a></li>
+                        <li><a href="#electronics">Home Electronics</a></li>
+                        <li><a href="#computing">Laptops</a></li>
+                    </ul>
+                </div>
+                <div class="link-category">
+                    <h3>Customer Service</h3>
+                    <ul class="link-list">
+                        <li><a href="#help">Help Center</a></li>
+                        <li><a href="#help">Contact Us</a></li>
+                        <li><a href="#help">Shipping Policy</a></li>
+                        <li><a href="#help">Returns & Refunds</a></li>
+                        <li><a href="#help">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="link-category">
+                    <h3>About Us</h3>
+                    <ul class="link-list">
+                        <li><a href="#about">About ShopEasy</a></li>
+                        <li><a href="#about">Careers</a></li>
+                        <li><a href="#about">Terms & Conditions</a></li>
+                        <li><a href="#about">Privacy Policy</a></li>
+                        <li><a href="#about">Sell on ShopEasy</a></li>
+                    </ul>
+                </div>
+                <div class="link-category">
+                    <h3>Payment Methods</h3>
+                    <ul class="link-list">
+                        <li><i class="fab fa-cc-visa"></i> Visa</li>
+                        <li><i class="fab fa-cc-mastercard"></i> MasterCard</li>
+                        <li><i class="fab fa-cc-paypal"></i> PayPal</li>
+                        <li><i class="fas fa-money-bill-wave"></i> Cash on Delivery</li>
+                        <li><i class="fas fa-mobile-alt"></i> Mobile Money</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Company Info -->
+                <div class="footer-column">
+                    <a href="#" class="logo" style="margin-bottom: 20px; display: inline-block;">
+                        <i class="fas fa-shopping-bag logo-icon"></i>
+                        <div class="logo-text"><span>Shop EveryThing</span></div>
+                    </a>
+                    <p style="color: #cbd5e0; margin-bottom: 20px;">Your trusted online shopping destination. Quality products at affordable prices with fast delivery across Nigeria.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#deals">Deals</a></li>
+                        <li><a href="#products">New Arrivals</a></li>
+                        <li><a href="#products">Best Sellers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Customer Service -->
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul class="footer-links">
+                        <li><a href="#help">Contact Us</a></li>
+                        <li><a href="#help">FAQ</a></li>
+                        <li><a href="#help">Shipping Policy</a></li>
+                        <li><a href="#help">Returns & Refunds</a></li>
+                        <li><a href="#help">Privacy Policy</a></li>
+                        <li><a href="#help">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt contact-icon"></i>
+                            <span>123 Shopping Street, Lagos, Nigeria</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone contact-icon"></i>
+                            <span>+234 800 123 4567</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope contact-icon"></i>
+                            <span>support@shopeverything.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock contact-icon"></i>
+                            <span>Mon - Fri: 8:00 AM - 8:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 ShopEverything. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff6b35;"></i> for online shoppers</p>
+                <p style="margin-top: 10px; font-size: 12px;">Prices and availability are subject to change. All trademarks are property of their respective owners.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+    <script src="/product.js"></script>
+</body>
+</html>

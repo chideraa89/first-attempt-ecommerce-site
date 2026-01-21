@@ -1,0 +1,72 @@
+const products = [
+    {
+        id: 1,
+        name: "iPhone 15 Pro Max - 256GB",
+        category: "phones",
+        brand: "Apple",
+        price: 1650000,
+        originalPrice: 1800000,
+        rating: 4.8,
+        reviews: 450,
+        image: "https://images.unsplash.com/photo-1696446701796-da61225697cc?auto=format&fit=crop&w=500&q=80",
+        description: "Experience the power of Titanium with the new iPhone 15 Pro Max. Features A17 Pro chip and the best camera system yet.",
+        features: ["Titanium Design", "A17 Pro Chip", "48MP Main Camera", "USB-C Support"],
+        stock: 12
+    },
+    {
+        id: 2,
+        name: "HP Pavilion Laptop - 15.6\"",
+        category: "computing",
+        brand: "HP",
+        price: 750000,
+        originalPrice: 820000,
+        rating: 4.5,
+        reviews: 89,
+        image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=500&q=80",
+        description: "Perfect for work and school. High performance with Intel Core i5 and 16GB RAM.",
+        features: ["Intel Core i5", "16GB RAM", "512GB SSD", "Backlit Keyboard"],
+        stock: 25
+    },
+    {
+        id: 3,
+        name: "Men's Classic Corporate Suit",
+        category: "fashion",
+        brand: "Wardrobe",
+        price: 45000,
+        originalPrice: 65000,
+        rating: 4.2,
+        reviews: 210,
+        image: "https://images.unsplash.com/photo-1594932224440-74693226f507?auto=format&fit=crop&w=500&q=80",
+        description: "Premium slim-fit corporate suit for the modern gentleman. Perfect for weddings and office wear.",
+        features: ["Slim Fit", "Premium Wool Blend", "Breathable Lining", "Two-Button Closure"],
+        stock: 100
+    },
+    {
+        id: 4,
+        name: "Samsung 55\" Crystal UHD 4K TV",
+        category: "electronics",
+        brand: "Samsung",
+        price: 580000,
+        originalPrice: 620000,
+        rating: 4.7,
+        reviews: 156,
+        image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=500&q=80",
+        description: "Breathtaking 4K resolution with Smart TV capabilities. Stream Netflix, YouTube and more.",
+        features: ["4K UHD Resolution", "Smart Hub", "HDR Support", "3 HDMI Ports"],
+        stock: 8
+    },
+    {
+        id: 5,
+        name: "Binatone Standing Fan - A1692",
+        category: "home",
+        brand: "Binatone",
+        price: 38500,
+        originalPrice: 42000,
+        rating: 4.6,
+        reviews: 340,
+        image: "https://images.unsplash.com/photo-1618944847023-38aa001235f0?auto=format&fit=crop&w=500&q=80",
+        description: "High-efficiency fan with 5-fin blade and 3-speed selector. Durable and quiet.",
+        features: ["High Efficiency", "Long Life Motor", "Safety Grill", "1.5M Height"],
+        stock: 50
+    }
+];
